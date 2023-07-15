@@ -19,7 +19,7 @@ function AttachChams(parent, face)
 	Frame.Size = UDim2.new(1,0,1,0)
 end
 
-_G.PatrickHackEsp = {
+getgenv().PikaESPSettings = {
     Box = false,
     Name = false,
     Tracers = false,
@@ -31,7 +31,7 @@ _G.PatrickHackEsp = {
     TextSize = 16
 }
 
-local function PatrickHackEsp(v)
+local function PikaESP(v)
     local BoxOutline = Drawing.new("Square")
     BoxOutline.Visible = false
     BoxOutline.Color = Color3.new(0,0,0)
@@ -92,7 +92,7 @@ local function PatrickHackEsp(v)
             local HeadPosition = worldToViewportPoint(CurrentCamera, Head.Position + Vector3.new(0,0.5,0))
             local LegPosition = worldToViewportPoint(CurrentCamera, RootPart.Position - Vector3.new(0,3,0))
                 
-            if PatrickHackEspSettings.Chams and v.Character.Head:FindFirstChild("Body") == nil then
+            if PikaESPSettings.Chams and v.Character.Head:FindFirstChild("Body") == nil then
                 for i,v in pairs(v.Character:GetChildren()) do
                     if v:IsA("MeshPart") or v.Name == "Head" then
                         AttachChams(v, "Back")
@@ -106,7 +106,7 @@ local function PatrickHackEsp(v)
             end
 
             if onScreen then
-                if PatrickHackEspSettings.Box then
+                if PikaESPSettings.Box then
                     BoxOutline.Size = Vector2.new(2500 / RootPosition.Z, HeadPosition.Y - LegPosition.Y)
                     BoxOutline.Position = Vector2.new(RootPosition.X - BoxOutline.Size.X / 2, RootPosition.Y - BoxOutline.Size.Y / 2)
                     BoxOutline.Visible = true
@@ -129,8 +129,8 @@ local function PatrickHackEsp(v)
                     HealthBarOutline.Visible = false
                     HealthBar.Visible = false
                 end
-                if PatrickHackEspSettings.Tracers then
-                    if PatrickHackEspSettings.UnlockTracers then
+                if PikaESPSettings.Tracers then
+                    if PikaESPSettings.UnlockTracers then
                         Tracer.From = Vector2.new(mouse.X, mouse.Y + 36)
                     else
                         Tracer.From = Vector2.new(camera.ViewportSize.X / 2, camera.ViewportSize.Y / 1)
@@ -140,26 +140,26 @@ local function PatrickHackEsp(v)
                 else
                     Tracer.Visible = false
                 end
-                if PatrickHackEspSettings.Name then
+                if PikaESPSettings.Name then
                     Name.Text = tostring(v.Name)
                     Name.Position = Vector2.new(workspace.Camera:WorldToViewportPoint(v.Character.Head.Position).X, workspace.Camera:WorldToViewportPoint(v.Character.Head.Position).Y - 30)
                     Name.Visible = true
-                    Name.Size = PatrickHackEspSettings.TextSize
-                    if PatrickHackEspSettings.Font == "UI" then
+                    Name.Size = PikaESPSettings.TextSize
+                    if PikaESPSettings.Font == "UI" then
                         Name.Font = 0
                         Gun.Font = 0
-                    elseif PatrickHackEspSettings.Font == "System" then
+                    elseif PikaESPSettings.Font == "System" then
                         Name.Font = 1
                         Gun.Font = 1
-                    elseif PatrickHackEspSettings.Font == "Plex" then
+                    elseif PikaESPSettings.Font == "Plex" then
                         Name.Font = 2
                         Gun.Font = 2
-                    elseif PatrickHackEspSettings.Font == "Monospace" then
+                    elseif PikaESPSettings.Font == "Monospace" then
                         Name.Font = 3
                         Gun.Font = 3
                     end
-                    Gun.Size = PatrickHackEspSettings.TextSize
-                    Gun.Text = tostring("")
+                    Gun.Size = PikaESPSettings.TextSize
+                    Gun.Text = tostring("crimhook")
                     Gun.Position = Vector2.new(LegPosition.X, LegPosition.Y + 10)
                     Gun.Visible = true
                 else
@@ -188,9 +188,9 @@ local function PatrickHackEsp(v)
 end
 
 for i,v in pairs(game.Players:GetChildren()) do
-    PatrickHackEsp(v)
+    PikaESP(v)
 end
 
 game.Players.PlayerAdded:Connect(function(v)
-    PatrickHackEsp(v)
+    PikaESP(v)
 end)
